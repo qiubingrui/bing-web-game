@@ -281,181 +281,88 @@ function analyzeQuestionType(question) {
         return 'general';
     }
 }
-
-// 生成个性化解读
+// 1. 单牌个性化解读 → AI
 function generatePersonalizedReading(card, question) {
     const questionType = analyzeQuestionType(question);
-    const meaning = card.meaning.toLowerCase();
+    const cardName = card.name;
+    const resultDiv = document.getElementById('ai-result');
+    resultDiv.textContent = "🔮 正在感应塔罗牌...";
 
-    let readings = [];
+    const prompt = `你是温柔治愈塔罗师，抽到【${cardName}】，问题类型：${questionType}，问题：${question}，50字内温柔解读。`;
 
-    switch (questionType) {
-        case 'love':
-            readings = [
-                `在感情方面，${card.name}牌提示你${meaning}。这意味着在你的爱情关系中，你可能需要更加关注${meaning}的方面，这将帮助你建立更健康、更和谐的关系。`,
-                `关于你的感情问题，${card.name}牌象征着${meaning}。这可能表示你当前的感情状态需要${meaning}的元素，或者你即将在感情生活中经历${meaning}的变化。`,
-                `当你思考感情问题时，${card.name}牌带来的信息是${meaning}。这可能是在提醒你，在处理感情关系时，要保持${meaning}的态度，这样才能找到真正的幸福。`,
-                `对于你的感情问题，${card.name}牌建议你${meaning}。这意味着你可能需要调整自己的态度，以${meaning}的方式面对感情中的挑战，从而获得更好的结果。`,
-                `在感情的背景下，${card.name}牌代表着${meaning}。这可能是你当前感情状态的真实反映，也是你改善感情关系的关键所在。`
-            ];
-            break;
-        case 'career':
-            readings = [
-                `在事业方面，${card.name}牌提示你${meaning}。这意味着在你的职业发展中，你可能需要更加注重${meaning}的能力，这将帮助你在职场中取得更大的成功。`,
-                `关于你的工作问题，${card.name}牌象征着${meaning}。这可能表示你当前的工作状态需要${meaning}的元素，或者你即将在职业生涯中迎来${meaning}的机会。`,
-                `当你思考工作问题时，${card.name}牌带来的信息是${meaning}。这可能是在提醒你，在处理工作事务时，要保持${meaning}的态度，这样才能在职场中脱颖而出。`,
-                `对于你的事业问题，${card.name}牌建议你${meaning}。这意味着你可能需要调整自己的工作方式，以${meaning}的态度面对职业挑战，从而获得更好的职业发展。`,
-                `在职业发展的背景下，${card.name}牌代表着${meaning}。这可能是你当前职业状态的真实反映，也是你实现职业目标的关键所在。`
-            ];
-            break;
-        case 'finance':
-            readings = [
-                `在财务方面，${card.name}牌提示你${meaning}。这意味着在你的财务管理中，你可能需要更加注重${meaning}的原则，这将帮助你实现财务稳定和增长。`,
-                `关于你的金钱问题，${card.name}牌象征着${meaning}。这可能表示你当前的财务状况需要${meaning}的元素，或者你即将在财务方面迎来${meaning}的机会。`,
-                `当你思考财务问题时，${card.name}牌带来的信息是${meaning}。这可能是在提醒你，在处理金钱事务时，要保持${meaning}的态度，这样才能实现财务自由。`,
-                `对于你的财务问题，${card.name}牌建议你${meaning}。这意味着你可能需要调整自己的消费习惯，以${meaning}的方式管理财务，从而获得更好的财务状况。`,
-                `在财务状况的背景下，${card.name}牌代表着${meaning}。这可能是你当前财务状态的真实反映，也是你改善财务状况的关键所在。`
-            ];
-            break;
-        case 'health':
-            readings = [
-                `在健康方面，${card.name}牌提示你${meaning}。这意味着在你的健康管理中，你可能需要更加注重${meaning}的生活方式，这将帮助你保持身体和心理的健康。`,
-                `关于你的健康问题，${card.name}牌象征着${meaning}。这可能表示你当前的健康状况需要${meaning}的元素，或者你即将在健康方面迎来${meaning}的改善。`,
-                `当你思考健康问题时，${card.name}牌带来的信息是${meaning}。这可能是在提醒你，在日常生活中，要保持${meaning}的态度，这样才能维持良好的健康状态。`,
-                `对于你的健康问题，${card.name}牌建议你${meaning}。这意味着你可能需要调整自己的生活习惯，以${meaning}的方式对待健康，从而获得更好的健康状况。`,
-                `在健康状况的背景下，${card.name}牌代表着${meaning}。这可能是你当前健康状态的真实反映，也是你改善健康状况的关键所在。`
-            ];
-            break;
-        case 'future':
-            readings = [
-                `在未来发展方面，${card.name}牌提示你${meaning}。这意味着在你的未来规划中，你可能需要更加注重${meaning}的方向，这将帮助你实现自己的人生目标。`,
-                `关于你的未来问题，${card.name}牌象征着${meaning}。这可能表示你即将在未来经历${meaning}的变化，或者你需要以${meaning}的态度面对未来的挑战。`,
-                `当你思考未来问题时，${card.name}牌带来的信息是${meaning}。这可能是在提醒你，在规划未来时，要保持${meaning}的态度，这样才能创造美好的未来。`,
-                `对于你的未来问题，${card.name}牌建议你${meaning}。这意味着你可能需要调整自己的人生规划，以${meaning}的方式面对未来，从而获得更好的未来发展。`,
-                `在未来发展的背景下，${card.name}牌代表着${meaning}。这可能是你未来发展的重要指引，也是你实现人生目标的关键所在。`
-            ];
-            break;
-        case 'family':
-            readings = [
-                `在家庭方面，${card.name}牌提示你${meaning}。这意味着在你的家庭关系中，你可能需要更加注重${meaning}的元素，这将帮助你建立更和谐、更幸福的家庭。`,
-                `关于你的家庭问题，${card.name}牌象征着${meaning}。这可能表示你当前的家庭状况需要${meaning}的元素，或者你即将在家庭生活中经历${meaning}的变化。`,
-                `当你思考家庭问题时，${card.name}牌带来的信息是${meaning}。这可能是在提醒你，在处理家庭事务时，要保持${meaning}的态度，这样才能维护家庭的和谐。`,
-                `对于你的家庭问题，${card.name}牌建议你${meaning}。这意味着你可能需要调整自己的家庭观念，以${meaning}的方式对待家人，从而获得更好的家庭关系。`,
-                `在家庭生活的背景下，${card.name}牌代表着${meaning}。这可能是你当前家庭状态的真实反映，也是你改善家庭关系的关键所在。`
-            ];
-            break;
-        case 'friends':
-            readings = [
-                `在友谊方面，${card.name}牌提示你${meaning}。这意味着在你的社交关系中，你可能需要更加注重${meaning}的品质，这将帮助你建立更真诚、更持久的友谊。`,
-                `关于你的朋友问题，${card.name}牌象征着${meaning}。这可能表示你当前的社交状况需要${meaning}的元素，或者你即将在友谊方面经历${meaning}的变化。`,
-                `当你思考朋友问题时，${card.name}牌带来的信息是${meaning}。这可能是在提醒你，在处理社交关系时，要保持${meaning}的态度，这样才能获得真正的友谊。`,
-                `对于你的朋友问题，${card.name}牌建议你${meaning}。这意味着你可能需要调整自己的社交方式，以${meaning}的态度对待朋友，从而获得更好的社交关系。`,
-                `在友谊的背景下，${card.name}牌代表着${meaning}。这可能是你当前社交状态的真实反映，也是你改善友谊关系的关键所在。`
-            ];
-            break;
-        default:
-            readings = [
-                `针对你的问题"${question}"，${card.name}牌提示你${meaning}。这意味着在你当前面临的情况中，你可能需要更加关注${meaning}的方面，这将帮助你找到解决问题的方法。`,
-                `关于"${question}"，${card.name}牌象征着${meaning}，这可能是你当前需要关注的方向。这可能表示你需要以${meaning}的态度面对当前的挑战，从而获得更好的结果。`,
-                `当你思考"${question}"时，${card.name}牌带来的信息是${meaning}。这可能是在提醒你，在处理当前问题时，要保持${meaning}的态度，这样才能找到正确的解决方案。`,
-                `对于"${question}"这个问题，${card.name}牌建议你${meaning}。这意味着你可能需要调整自己的思路，以${meaning}的方式面对问题，从而获得更好的结果。`,
-                `在"${question}"的背景下，${card.name}牌代表着${meaning}，这可能是你前进的关键。这可能是你当前状态的真实反映，也是你解决问题的重要指引。`
-            ];
-    }
-
-    const randomIndex = Math.floor(Math.random() * readings.length);
-    return readings[randomIndex];
+    fetch("https://ark.cn-beijing.volces.com/api/v3/responses", {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer sk-c7f28817-ffed-4e07-bda7-e787a14340ca",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "model": "doubao-seed-1-8-251228",
+            "input": [{ role: "user", content: [{ type: "input_text", text: prompt }] }]
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        resultDiv.textContent = data.output?.text || "✨ 这张牌在温柔守护你。";
+    })
+    .catch(() => {
+        resultDiv.textContent = `✨ ${cardName}：你正被宇宙温柔爱着。`;
+    });
 }
 
-// 生成牌面总结
+// 2. 牌面总结 → AI
 function generateCardSummary(card, question) {
-    const questionType = analyzeQuestionType(question);
-    const meaning = card.meaning.toLowerCase();
+    const resultDiv = document.getElementById('card-summary');
+    resultDiv.textContent = "🔮 正在总结牌面...";
 
-    let summaries = [];
+    const prompt = `塔罗牌【${card.name}】，问题：${question}，30字内简洁核心总结。`;
 
-    switch (questionType) {
-        case 'love':
-            summaries = [
-                `综合来看，${card.name}牌在你关于感情的问题中扮演着重要角色。它代表的${meaning}特质，可能是你当前感情生活中需要关注和发展的方向。通过培养这些特质，你可以建立更健康、更和谐的感情关系。`,
-                `从${card.name}牌的含义来看，对于你的感情问题，你可能需要更多地关注${meaning}方面的因素，这将帮助你找到解决感情困扰的方法，或者为你的感情生活带来新的转机。`,
-                `${card.name}牌为你的感情问题提供了一个独特的视角。它象征着${meaning}，这可能是你当前感情状态的真实反映，也是你改善感情关系的重要指引。`,
-                `当面对感情问题时，${card.name}牌提示你要重视${meaning}的力量，这将帮助你度过当前的感情挑战，迎来新的感情机遇，或者加深你与伴侣之间的连接。`,
-                `综合${card.name}牌的含义，对于你的感情问题，你需要保持${meaning}的态度，这将引导你走向更加积极和充实的感情生活，帮助你找到真正的爱情和幸福。`
-            ];
-            break;
-        case 'career':
-            summaries = [
-                `综合来看，${card.name}牌在你关于事业的问题中扮演着重要角色。它代表的${meaning}特质，可能是你当前职业发展中需要关注和培养的能力。通过发展这些能力，你可以在职场中取得更大的成功。`,
-                `从${card.name}牌的含义来看，对于你的工作问题，你可能需要更多地关注${meaning}方面的因素，这将帮助你找到解决职业困扰的方法，或者为你的职业生涯带来新的机会。`,
-                `${card.name}牌为你的事业问题提供了一个独特的视角。它象征着${meaning}，这可能是你当前职业状态的真实反映，也是你实现职业目标的重要指引。`,
-                `当面对职业挑战时，${card.name}牌提示你要重视${meaning}的力量，这将帮助你度过当前的工作困难，迎来新的职业机遇，或者在职场中获得更多的认可和成就。`,
-                `综合${card.name}牌的含义，对于你的事业问题，你需要保持${meaning}的态度，这将引导你走向更加成功和充实的职业生涯，帮助你实现自己的职业理想。`
-            ];
-            break;
-        case 'finance':
-            summaries = [
-                `综合来看，${card.name}牌在你关于财务的问题中扮演着重要角色。它代表的${meaning}特质，可能是你当前财务管理中需要关注和实践的原则。通过遵循这些原则，你可以实现财务的稳定和增长。`,
-                `从${card.name}牌的含义来看，对于你的金钱问题，你可能需要更多地关注${meaning}方面的因素，这将帮助你找到解决财务困扰的方法，或者为你的财务状况带来新的改善。`,
-                `${card.name}牌为你的财务问题提供了一个独特的视角。它象征着${meaning}，这可能是你当前财务状态的真实反映，也是你实现财务目标的重要指引。`,
-                `当面对财务挑战时，${card.name}牌提示你要重视${meaning}的力量，这将帮助你度过当前的财务困难，迎来新的财务机遇，或者实现财务的自由和独立。`,
-                `综合${card.name}牌的含义，对于你的财务问题，你需要保持${meaning}的态度，这将引导你走向更加稳定和充实的财务状况，帮助你实现经济上的安全感。`
-            ];
-            break;
-        case 'health':
-            summaries = [
-                `综合来看，${card.name}牌在你关于健康的问题中扮演着重要角色。它代表的${meaning}特质，可能是你当前健康管理中需要关注和实践的生活方式。通过采纳这些生活方式，你可以保持身体和心理的健康。`,
-                `从${card.name}牌的含义来看，对于你的健康问题，你可能需要更多地关注${meaning}方面的因素，这将帮助你找到解决健康困扰的方法，或者为你的健康状况带来新的改善。`,
-                `${card.name}牌为你的健康问题提供了一个独特的视角。它象征着${meaning}，这可能是你当前健康状态的真实反映，也是你维护健康的重要指引。`,
-                `当面对健康挑战时，${card.name}牌提示你要重视${meaning}的力量，这将帮助你度过当前的健康困难，迎来新的健康机遇，或者恢复身体和心理的平衡。`,
-                `综合${card.name}牌的含义，对于你的健康问题，你需要保持${meaning}的态度，这将引导你走向更加健康和充实的生活，帮助你实现身体和心理的和谐。`
-            ];
-            break;
-        case 'future':
-            summaries = [
-                `综合来看，${card.name}牌在你关于未来的问题中扮演着重要角色。它代表的${meaning}特质，可能是你当前未来规划中需要关注和发展的方向。通过朝着这些方向努力，你可以实现自己的人生目标。`,
-                `从${card.name}牌的含义来看，对于你的未来问题，你可能需要更多地关注${meaning}方面的因素，这将帮助你找到规划未来的方法，或者为你的未来发展带来新的机遇。`,
-                `${card.name}牌为你的未来问题提供了一个独特的视角。它象征着${meaning}，这可能是你当前状态的真实反映，也是你未来发展的重要指引。`,
-                `当面对未来的不确定性时，${card.name}牌提示你要重视${meaning}的力量，这将帮助你度过当前的迷茫期，迎来新的未来机遇，或者找到自己人生的方向。`,
-                `综合${card.name}牌的含义，对于你的未来问题，你需要保持${meaning}的态度，这将引导你走向更加光明和充实的未来，帮助你实现自己的人生理想。`
-            ];
-            break;
-        case 'family':
-            summaries = [
-                `综合来看，${card.name}牌在你关于家庭的问题中扮演着重要角色。它代表的${meaning}特质，可能是你当前家庭关系中需要关注和培养的元素。通过培养这些元素，你可以建立更和谐、更幸福的家庭。`,
-                `从${card.name}牌的含义来看，对于你的家庭问题，你可能需要更多地关注${meaning}方面的因素，这将帮助你找到解决家庭困扰的方法，或者为你的家庭生活带来新的改善。`,
-                `${card.name}牌为你的家庭问题提供了一个独特的视角。它象征着${meaning}，这可能是你当前家庭状态的真实反映，也是你改善家庭关系的重要指引。`,
-                `当面对家庭挑战时，${card.name}牌提示你要重视${meaning}的力量，这将帮助你度过当前的家庭困难，迎来新的家庭机遇，或者加深你与家人之间的感情。`,
-                `综合${card.name}牌的含义，对于你的家庭问题，你需要保持${meaning}的态度，这将引导你走向更加和谐和充实的家庭生活，帮助你建立幸福的家庭环境。`
-            ];
-            break;
-        case 'friends':
-            summaries = [
-                `综合来看，${card.name}牌在你关于友谊的问题中扮演着重要角色。它代表的${meaning}特质，可能是你当前社交关系中需要关注和培养的品质。通过培养这些品质，你可以建立更真诚、更持久的友谊。`,
-                `从${card.name}牌的含义来看，对于你的朋友问题，你可能需要更多地关注${meaning}方面的因素，这将帮助你找到解决社交困扰的方法，或者为你的友谊关系带来新的改善。`,
-                `${card.name}牌为你的朋友问题提供了一个独特的视角。它象征着${meaning}，这可能是你当前社交状态的真实反映，也是你改善友谊关系的重要指引。`,
-                `当面对社交挑战时，${card.name}牌提示你要重视${meaning}的力量，这将帮助你度过当前的社交困难，迎来新的友谊机遇，或者加深你与朋友之间的感情。`,
-                `综合${card.name}牌的含义，对于你的朋友问题，你需要保持${meaning}的态度，这将引导你走向更加丰富和充实的社交生活，帮助你建立真正的友谊。`
-            ];
-            break;
-        default:
-            summaries = [
-                `综合来看，${card.name}牌在你关于"${question}"的问题中扮演着重要角色。它代表的${meaning}特质，可能是你当前需要关注和发展的方向。通过培养这些特质，你可以找到解决问题的方法。`,
-                `从${card.name}牌的含义来看，对于"${question}"这个问题，你可能需要更多地关注${meaning}方面的因素，这将帮助你找到解决当前困扰的方法，或者为你的现状带来新的改善。`,
-                `${card.name}牌为你的问题"${question}"提供了一个独特的视角。它象征着${meaning}，这可能是你当前状态的真实反映，也是你前进的重要指引。`,
-                `当面对"${question}"这个问题时，${card.name}牌提示你要重视${meaning}的力量，这将帮助你度过当前的挑战，迎来新的机遇，或者找到解决问题的关键。`,
-                `综合${card.name}牌的含义，对于"${question}"这个问题，你需要保持${meaning}的态度，这将引导你走向更加积极和充实的状态，帮助你实现自己的目标。`
-            ];
-    }
-
-    const randomIndex = Math.floor(Math.random() * summaries.length);
-    return summaries[randomIndex];
+    fetch("https://ark.cn-beijing.volces.com/api/v3/responses", {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer sk-c7f28817-ffed-4e07-bda7-e787a14340ca",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "model": "doubao-seed-1-8-251228",
+            "input": [{ role: "user", content: [{ type: "input_text", text: prompt }] }]
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        resultDiv.textContent = data.output?.text || "✨ 牌面能量非常温柔。";
+    })
+    .catch(() => {
+        resultDiv.textContent = "✨ 这是一张充满好运的牌。";
+    });
 }
 
-// 生成牌阵总结
+// 3. 牌阵总结 → AI
 function generateSpreadSummary(cards, question) {
-    const summary = `综合来看，这些牌为你的问题"${question}"提供了全面的视角。从过去的影响到未来的可能，从意识层面到潜意识的因素，它们共同构成了一个完整的画面。记住，塔罗牌不是预言，而是引导你思考的工具，最终的选择和行动掌握在你自己手中。`;
-    return summary;
+    const resultDiv = document.getElementById('spread-meanings');
+    resultDiv.textContent = "🔮 正在解读牌阵...";
+    const cardNames = cards.map(c => c.name).join('、');
+
+    const prompt = `牌阵：${cardNames}，问题：${question}，50字内温柔整体总结。`;
+
+    fetch("https://ark.cn-beijing.volces.com/api/v3/responses", {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer sk-c7f28817-ffed-4e07-bda7-e787a14340ca",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "model": "doubao-seed-1-8-251228",
+            "input": [{ role: "user", content: [{ type: "input_text", text: prompt }] }]
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        resultDiv.textContent = data.output?.text || "✨ 牌阵整体非常顺利。";
+    })
+    .catch(() => {
+        resultDiv.textContent = "✨ 你正被温柔守护着。";
+    });
 }
 
 // 创建倒计时元素
@@ -728,3 +635,4 @@ function createParticles() {
 
 // 页面加载完成后初始化
 window.addEventListener('DOMContentLoaded', initGame);
+
