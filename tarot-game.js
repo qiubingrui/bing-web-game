@@ -281,14 +281,22 @@ function analyzeQuestionType(question) {
         return 'general';
     }
 }
-// 1. 单牌个性化解读 → AI
+// 1. 单牌个性化解读 -> AI（已修正 ID）
 function generatePersonalizedReading(card, question) {
-    const questionType = analyzeQuestionType(question);
-    const cardName = card.name;
+    // 👇 重点：改成你 HTML 里真实存在的 id="personalized-reading"
     const resultDiv = document.getElementById('personalized-reading');
-    resultDiv.textContent = "🔮 正在感应塔罗牌...";
+    
+    // 如果页面没找到这个元素（防止报错），加个判断
+    if (!resultDiv) {
+        console.error("错误：未找到 id='personalized-reading' 的元素");
+        return;
+    }
 
-    const prompt = `你是温柔治愈塔罗师，抽到【${cardName}】，问题类型：${questionType}，问题：${question}，50字内温柔解读。`;
+    // 先显示加载中
+    resultDiv.textContent = "🔮 塔罗牌正在感应...";
+
+    // 更像人的提示词
+    const prompt = `亲爱的，我抽到了【${card.name}】，这张牌意味着${card.meaning}。结合我的问题【${question}】，说一句你对我的心里话，不要太长，像朋友聊天一样。`;
 
     fetch("https://ark.cn-beijing.volces.com/api/v3/responses", {
         method: "POST",
@@ -303,13 +311,12 @@ function generatePersonalizedReading(card, question) {
     })
     .then(res => res.json())
     .then(data => {
-        resultDiv.textContent = data.output?.text || "✨ 这张牌在温柔守护你。";
+        resultDiv.textContent = data.output?.text || `✨ ${card.name}：你正被宇宙温柔守护着。`;
     })
     .catch(() => {
-        resultDiv.textContent = `✨ ${cardName}：你正被宇宙温柔爱着。`;
+        resultDiv.textContent = `✨ ${card.name}：你正被宇宙温柔爱着。`;
     });
 }
-
 // 2. 牌面总结 → AI
 function generateCardSummary(card, question) {
     const resultDiv = document.getElementById('personalized-reading');
@@ -635,5 +642,6 @@ function createParticles() {
 
 // 页面加载完成后初始化
 window.addEventListener('DOMContentLoaded', initGame);
+
 
 
