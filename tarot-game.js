@@ -285,7 +285,7 @@ function analyzeQuestionType(question) {
 function generatePersonalizedReading(card, question) {
     const questionType = analyzeQuestionType(question);
     const cardName = card.name;
-    const resultDiv = document.getElementById('ai-result');
+    const resultDiv = document.getElementById('personalized-reading');
     resultDiv.textContent = "🔮 正在感应塔罗牌...";
 
     const prompt = `你是温柔治愈塔罗师，抽到【${cardName}】，问题类型：${questionType}，问题：${question}，50字内温柔解读。`;
@@ -312,7 +312,7 @@ function generatePersonalizedReading(card, question) {
 
 // 2. 牌面总结 → AI
 function generateCardSummary(card, question) {
-    const resultDiv = document.getElementById('card-summary');
+    const resultDiv = document.getElementById('personalized-reading');
     resultDiv.textContent = "🔮 正在总结牌面...";
 
     const prompt = `塔罗牌【${card.name}】，问题：${question}，30字内简洁核心总结。`;
@@ -635,4 +635,5 @@ function createParticles() {
 
 // 页面加载完成后初始化
 window.addEventListener('DOMContentLoaded', initGame);
+
 
