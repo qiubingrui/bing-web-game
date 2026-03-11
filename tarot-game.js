@@ -305,7 +305,7 @@ function generatePersonalizedReading(card, question) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            "model": "doubao-seed-1-8-251228",
+            "model": "ep-20260311201631-ddm95",
             "input": [{ role: "user", content: [{ type: "input_text", text: prompt }] }]
         })
     })
@@ -331,7 +331,7 @@ function generateCardSummary(card, question) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            "model": "doubao-seed-1-8-251228",
+            "model": "ep-20260311201631-ddm95",
             "input": [{ role: "user", content: [{ type: "input_text", text: prompt }] }]
         })
     })
@@ -359,7 +359,7 @@ function generateSpreadSummary(cards, question) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            "model": "doubao-seed-1-8-251228",
+            "model": "ep-20260311201631-ddm95",
             "input": [{ role: "user", content: [{ type: "input_text", text: prompt }] }]
         })
     })
@@ -642,6 +642,7 @@ function createParticles() {
 
 // 页面加载完成后初始化
 window.addEventListener('DOMContentLoaded', initGame);
+
 
 
 
