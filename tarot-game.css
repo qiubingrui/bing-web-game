@@ -1,0 +1,677 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* 背景效果 */
+.background-effect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(100, 50, 150, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+    z-index: -1;
+}
+
+.background-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23333" d="M10,10 L90,10 L90,90 L10,90 Z"/><path fill="none" stroke="%23663399" stroke-width="1" d="M10,10 L90,10 L90,90 L10,90 Z"/><path fill="none" stroke="%23663399" stroke-width="0.5" d="M10,30 L90,30 M10,50 L90,50 M10,70 L90,70 M30,10 L30,90 M50,10 L50,90 M70,10 L70,90"/></svg>');
+    opacity: 0.05;
+    animation: backgroundMove 20s linear infinite;
+}
+
+@keyframes backgroundMove {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(100px, 100px);
+    }
+}
+
+/* 粒子浮动动画 */
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateY(-50px) translateX(20px);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.3;
+    }
+}
+
+/* 容器样式 */
+.tarot-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+}
+
+/* 标题样式 */
+.tarot-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(100, 50, 150, 0.2), rgba(50, 20, 100, 0.2));
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(100, 50, 150, 0.3);
+}
+
+.tarot-header h1 {
+    font-size: 3rem;
+    color: #d4af37;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    margin-bottom: 10px;
+}
+
+.tarot-header p {
+    font-size: 1.2rem;
+    color: #b8a9c9;
+}
+
+/* 模式选择器 */
+.mode-selector {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.mode-btn {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #3a1c71, #d76d77);
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.mode-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(215, 109, 119, 0.4);
+}
+
+.mode-btn.active {
+    background: linear-gradient(135deg, #d4af37, #f1c40f);
+    color: #333;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+/* 牌阵选择器 */
+.spread-selector {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.spread-btn {
+    padding: 8px 16px;
+    background: rgba(100, 50, 150, 0.3);
+    color: #e0e0e0;
+    border: 1px solid #663399;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.spread-btn:hover {
+    background: rgba(100, 50, 150, 0.5);
+    transform: translateY(-2px);
+}
+
+.spread-btn.active {
+    background: #d4af37;
+    color: #333;
+    border-color: #d4af37;
+}
+
+/* 问题输入 */
+.question-input {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.question-input label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: #b8a9c9;
+}
+
+.question-input input {
+    width: 80%;
+    max-width: 500px;
+    padding: 12px;
+    background: rgba(30, 30, 50, 0.8);
+    border: 1px solid #663399;
+    border-radius: 8px;
+    color: #e0e0e0;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.question-input input:focus {
+    outline: none;
+    border-color: #d4af37;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+/* 抽牌按钮 */
+.draw-btn {
+    display: block;
+    margin: 0 auto 30px;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #663399, #b19cd9);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 51, 153, 0.3);
+}
+
+.draw-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(102, 51, 153, 0.5);
+    background: linear-gradient(135deg, #b19cd9, #663399);
+}
+
+.draw-btn:active {
+    transform: translateY(0);
+}
+
+/* 模式内容 */
+.mode-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.mode-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 卡片容器 */
+.card-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    perspective: 1000px;
+}
+
+/* 塔罗牌样式 */
+.tarot-card {
+    width: 200px;
+    height: 300px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s ease;
+    cursor: pointer;
+}
+
+.tarot-card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.card-back {
+    background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    border: 2px solid #d4af37;
+}
+
+.card-front {
+    background: #fff;
+    color: #333;
+    padding: 20px;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 2px solid #d4af37;
+}
+
+.card-front h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #663399;
+}
+
+.card-front p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* 牌阵容器 */
+.spread-container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.spread-container.active {
+    display: flex;
+}
+
+#three-card-spread {
+    flex-direction: row;
+}
+
+#celtic-cross-spread {
+    position: relative;
+    width: 600px;
+    height: 400px;
+    flex-wrap: nowrap;
+}
+
+/* 牌阵卡片 */
+.spread-card {
+    width: 120px;
+    height: 180px;
+    background: linear-gradient(135deg, #3a1c71, #d76d77);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.8rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #d4af37;
+    position: relative;
+    overflow: hidden;
+}
+
+.spread-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(102, 51, 153, 0.5);
+}
+
+.spread-card::before {
+    content: attr(data-position);
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* 凯尔特十字牌阵布局 */
+#celtic-cross-spread .spread-card:nth-child(1) {
+    position: absolute;
+    top: 110px;
+    left: 240px;
+    z-index: 10;
+}
+
+#celtic-cross-spread .spread-card:nth-child(2) {
+    position: absolute;
+    top: 110px;
+    left: 240px;
+    transform: rotate(90deg);
+    z-index: 9;
+}
+
+#celtic-cross-spread .spread-card:nth-child(3) {
+    position: absolute;
+    top: 40px;
+    left: 240px;
+}
+
+#celtic-cross-spread .spread-card:nth-child(4) {
+    position: absolute;
+    top: 180px;
+    left: 240px;
+}
+
+#celtic-cross-spread .spread-card:nth-child(5) {
+    position: absolute;
+    top: 110px;
+    left: 170px;
+}
+
+#celtic-cross-spread .spread-card:nth-child(6) {
+    position: absolute;
+    top: 110px;
+    left: 310px;
+}
+
+#celtic-cross-spread .spread-card:nth-child(7) {
+    position: absolute;
+    top: 250px;
+    left: 170px;
+}
+
+#celtic-cross-spread .spread-card:nth-child(8) {
+    position: absolute;
+    top: 250px;
+    left: 240px;
+}
+
+#celtic-cross-spread .spread-card:nth-child(9) {
+    position: absolute;
+    top: 250px;
+    left: 310px;
+}
+
+#celtic-cross-spread .spread-card:nth-child(10) {
+    position: absolute;
+    top: 110px;
+    left: 450px;
+}
+
+/* 解释区域 */
+.interpretation {
+    background: rgba(30, 30, 50, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 30px;
+    box-shadow: 0 0 20px rgba(100, 50, 150, 0.3);
+    border: 1px solid #663399;
+}
+
+.interpretation h3 {
+    color: #d4af37;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+#card-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #b8a9c9;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#card-meaning {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+#personalized-reading {
+    background: rgba(100, 50, 150, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #d4af37;
+}
+
+#spread-meanings {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.spread-meaning-item {
+    background: rgba(100, 50, 150, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    border-left: 3px solid #d4af37;
+}
+
+.spread-meaning-item h4 {
+    color: #b8a9c9;
+    margin-bottom: 5px;
+    font-size: 1rem;
+}
+
+.spread-meaning-item p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* 发光效果 */
+.glow {
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+    to {
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.8), 0 0 30px rgba(212, 175, 55, 0.5);
+    }
+}
+
+/* 抽牌动画 */
+@keyframes drawCard {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(50px) rotate(180deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0) rotate(360deg);
+        opacity: 1;
+    }
+}
+
+.draw-animation {
+    animation: drawCard 1s ease-out forwards;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .tarot-header h1 {
+        font-size: 2rem;
+    }
+
+    .mode-selector {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mode-btn {
+        width: 80%;
+        margin-bottom: 10px;
+    }
+
+    .tarot-card {
+        width: 150px;
+        height: 225px;
+    }
+
+    .spread-card {
+        width: 100px;
+        height: 150px;
+    }
+
+    #celtic-cross-spread {
+        width: 400px;
+        height: 300px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(1) {
+        top: 75px;
+        left: 150px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(2) {
+        top: 75px;
+        left: 150px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(3) {
+        top: 25px;
+        left: 150px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(4) {
+        top: 125px;
+        left: 150px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(5) {
+        top: 75px;
+        left: 100px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(6) {
+        top: 75px;
+        left: 200px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(7) {
+        top: 175px;
+        left: 100px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(8) {
+        top: 175px;
+        left: 150px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(9) {
+        top: 175px;
+        left: 200px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(10) {
+        top: 75px;
+        left: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tarot-container {
+        padding: 10px;
+    }
+
+    .tarot-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .question-input input {
+        width: 95%;
+    }
+
+    #three-card-spread {
+        flex-direction: column;
+    }
+
+    #celtic-cross-spread {
+        width: 300px;
+        height: 400px;
+    }
+
+    #celtic-cross-spread .spread-card {
+        width: 80px;
+        height: 120px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(1) {
+        top: 140px;
+        left: 110px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(2) {
+        top: 140px;
+        left: 110px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(3) {
+        top: 80px;
+        left: 110px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(4) {
+        top: 200px;
+        left: 110px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(5) {
+        top: 140px;
+        left: 60px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(6) {
+        top: 140px;
+        left: 160px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(7) {
+        top: 260px;
+        left: 60px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(8) {
+        top: 260px;
+        left: 110px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(9) {
+        top: 260px;
+        left: 160px;
+    }
+
+    #celtic-cross-spread .spread-card:nth-child(10) {
+        top: 140px;
+        left: 220px;
+    }
+}

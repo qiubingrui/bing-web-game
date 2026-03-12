@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神秘塔罗牌 - 探索命运的奥秘</title>
+    <link rel="stylesheet" href="tarot-game.css">
+</head>
+<body>
+    <div class="tarot-container">
+        <!-- 游戏标题 -->
+        <header class="tarot-header">
+            <h1>神秘塔罗牌</h1>
+            <p>探索命运的奥秘</p>
+        </header>
+
+        <!-- 游戏模式选择 -->
+        <div class="mode-selector">
+            <button id="single-card-btn" class="mode-btn active">单张抽牌</button>
+            <button id="card-spread-btn" class="mode-btn">牌阵模式</button>
+        </div>
+
+        <!-- 单张抽牌模式 -->
+        <div id="single-card-mode" class="mode-content active">
+            <div class="question-input">
+                <label for="question">请输入您的问题：</label>
+                <input type="text" id="question" placeholder="例如：我的未来会怎样？">
+            </div>
+            <button id="draw-card-btn" class="draw-btn">抽牌</button>
+            <div class="card-container">
+                <div id="single-card" class="tarot-card">
+                    <div class="card-front"></div>
+                    <div class="card-back"></div>
+                </div>
+            </div>
+            <div id="card-interpretation" class="interpretation">
+                <h3>牌意解读</h3>
+                <div id="card-name"></div>
+                <div id="card-meaning"></div>
+                <div id="personalized-reading"></div>
+            </div>
+        </div>
+
+        <!-- 牌阵模式 -->
+        <div id="card-spread-mode" class="mode-content">
+            <div class="spread-selector">
+                <button data-spread="three-card" class="spread-btn active">三牌阵</button>
+                <button data-spread="celtic-cross" class="spread-btn">凯尔特十字</button>
+            </div>
+            <div class="question-input">
+                <label for="spread-question">请输入您的问题：</label>
+                <input type="text" id="spread-question" placeholder="例如：我应该如何面对当前的挑战？">
+            </div>
+            <button id="draw-spread-btn" class="draw-btn">抽牌</button>
+            <div id="three-card-spread" class="spread-container active">
+                <div class="spread-card" data-position="past"></div>
+                <div class="spread-card" data-position="present"></div>
+                <div class="spread-card" data-position="future"></div>
+            </div>
+            <div id="celtic-cross-spread" class="spread-container">
+                <div class="spread-card" data-position="present"></div>
+                <div class="spread-card" data-position="challenge"></div>
+                <div class="spread-card" data-position="past"></div>
+                <div class="spread-card" data-position="future"></div>
+                <div class="spread-card" data-position="conscious"></div>
+                <div class="spread-card" data-position="unconscious"></div>
+                <div class="spread-card" data-position="self"></div>
+                <div class="spread-card" data-position="environment"></div>
+                <div class="spread-card" data-position="hopes"></div>
+                <div class="spread-card" data-position="outcome"></div>
+            </div>
+            <div id="spread-interpretation" class="interpretation">
+                <h3>牌阵解读</h3>
+                <div id="spread-meanings"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 背景效果 -->
+    <div class="background-effect"></div>
+
+    <script src="tarot-game.js"></script>
+</body>
+</html>
